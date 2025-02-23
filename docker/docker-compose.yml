@@ -1,0 +1,10 @@
+services:
+  sulfur-database-proto:
+    image: node:22-alpine
+    container_name: proto
+    working_dir: /usr/src/app
+    ports:
+      - 5000:5000
+    volumes:
+      - ../:/usr/src/app
+    command: sh -c "npm ci && npm run build && npm run prod"
