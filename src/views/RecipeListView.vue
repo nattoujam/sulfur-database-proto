@@ -6,7 +6,7 @@ const recipes = ref([])
 
 const calculateRewards = (recipe) => {
   const sumMaterialTradeInPrice = recipe.materials.map(m => m.item.tradeInPrice * m.amount).reduce((sum, ele) => sum + ele, 0)
-  return recipe.result.tradeInPrice - sumMaterialTradeInPrice
+  return recipe.result.tradeInPrice * recipe.amount - sumMaterialTradeInPrice
 }
 
 axios.get(`${import.meta.env.VITE_API_BASE_URL}/recipe`).then((r) => {
@@ -27,7 +27,7 @@ axios.get(`${import.meta.env.VITE_API_BASE_URL}/recipe`).then((r) => {
         <div class="media-content">
           <div class="content">
             <p>
-              <strong>【{{ recipe.result.size }}】{{ recipe.result.name }}</strong>
+	    <strong>【{{ recipe.result.size }}】 {{ recipe.amount }} - {{ recipe.result.name }}</strong>
               <small>￥{{ recipe.result.tradeInPrice }} ({{ recipe.result.price }})</small>
               <ul>
                 <li v-for="(material) in recipe.materials" :key="`${recipe.id}-${material.id}`" >
