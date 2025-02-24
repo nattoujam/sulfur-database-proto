@@ -121,7 +121,7 @@ const onSubmit = () => {
           type="number"
           placeholder="5"
           :value="healSecond"
-          @input="(e) => (healSecond = Number.parseInt(e.target.value))"
+          @input="(e) => (healSecond = Number.parseFloat(e.target.value))"
         />
       </div>
     </div>
