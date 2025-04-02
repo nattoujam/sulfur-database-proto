@@ -77,7 +77,7 @@ axios.get(`${import.meta.env.VITE_API_BASE_URL}/item`).then((r) => {
 </script>
 
 <template>
-  <main>
+  <div>
     <div v-if="notificationVisible" class="notification is-success">
       <button class="delete" @click="() => (notificationVisible = false)"></button>
       <strong>Success</strong>: create item
@@ -163,5 +163,5 @@ axios.get(`${import.meta.env.VITE_API_BASE_URL}/item`).then((r) => {
         <button class="button is-link is-light" @click="onClear">Clear</button>
       </div>
     </div>
-  </main>
+  </div>
 </template>
