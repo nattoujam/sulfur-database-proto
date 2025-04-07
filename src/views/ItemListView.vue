@@ -11,27 +11,32 @@ axios.get(`${import.meta.env.VITE_API_BASE_URL}/item`).then((r) => {
 </script>
 
 <template>
-  <div class="column">
-    <div v-for="item in items" :key="item.id" class="card">
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <figure class="image is-48x48">
-              <img
-                src="https://bulma.io/assets/images/placeholders/96x96.png"
-                alt="Placeholder image"
-              />
-            </figure>
+  <div class="grid is-col-min-16">
+    <div v-for="item in items" :key="item.id" class="cell">
+      <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <img
+                  src="https://bulma.io/assets/images/placeholders/96x96.png"
+                  alt="Placeholder image"
+                />
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-5">【{{ item.size }}】{{ item.name }}</p>
+              <p class="subtitle is-6">S: ￥{{ item.tradeInPrice }} (B: ￥{{ item.price }})</p>
+            </div>
           </div>
-          <div class="media-content">
-            <p class="title is-4">【{{ item.size }}】{{ item.name }}</p>
-            <p class="subtitle is-6">￥{{ item.tradeInPrice }} ({{ item.price }})</p>
-          </div>
-        </div>
 
-        <div class="content">
-          <p>回復量: {{ item.healAmount }} / 回復速度: {{ item.healSecond }}s</p>
-          <time>update: {{ new Date(item.createdAt) }}</time>
+          <div class="content">
+            回復量: {{ item.healAmount }}<br />
+            回復速度: {{ item.healSecond }}s
+            <p class="has-text-right is-size-7 has-text-grey">
+              {{ new Date(item.createdAt).toLocaleString() }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
