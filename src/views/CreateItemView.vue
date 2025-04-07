@@ -6,7 +6,7 @@ const name = ref('')
 const tradeInPrice = ref(0)
 const size = ref(0)
 const healAmount = ref(0)
-const healSecond = ref(0)
+const healSecond = ref(0.0)
 
 const posting = ref(false)
 const notificationVisible = ref(false)
@@ -19,7 +19,7 @@ const onClear = () => {
   tradeInPrice.value = 0
   size.value = 0
   healAmount.value = 0
-  healSecond.value = 0
+  healSecond.value = 0.0
 }
 
 const onSubmit = () => {
@@ -117,7 +117,7 @@ const onSubmit = () => {
           type="number"
           placeholder="10"
           :value="healAmount"
-          @input="(e) => (healAmount = Number.parseInt(e.target.value))"
+          @input="(e) => (healAmount = Number.parseFloat(e.target.value))"
         />
       </div>
     </div>
@@ -130,7 +130,7 @@ const onSubmit = () => {
           type="number"
           placeholder="5"
           :value="healSecond"
-          @input="(e) => (healSecond = Number.parseInt(e.target.value))"
+          @input="(e) => (healSecond = Number.parseFloat(e.target.value))"
         />
       </div>
     </div>
