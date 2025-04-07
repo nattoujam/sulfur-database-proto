@@ -1,5 +1,5 @@
 {
-  "name": "sulfur-proto",
+  "name": "sulfur-database-proto",
   "version": "0.0.0",
   "private": true,
   "type": "module",

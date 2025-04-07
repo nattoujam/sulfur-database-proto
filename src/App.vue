@@ -11,7 +11,7 @@ const PAGE_LINK_LIST = [
 
 const route = useRoute()
 
-const activePage = ref<string>('')
+const activePage = ref<string>('/item')
 
 watch(
   () => route.path,
@@ -22,32 +22,45 @@ watch(
 </script>
 
 <template>
-  <header>
-    <nav class="tabs is-centered">
-      <ul>
-        <li
-          v-for="page in PAGE_LINK_LIST"
-          :key="page.path"
-          :class="activePage === page.path ? 'is-active' : ''"
-        >
-          <RouterLink :to="page.path">{{ page.displayName }}</RouterLink>
-        </li>
-      </ul>
-    </nav>
+  <header class="hero is-primary is-small">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">SULFUR Database</h1>
+        <h2 class="subtitle">- proto -</h2>
+      </div>
+    </div>
+
+    <div class="hero-foot">
+      <nav class="tabs is-boxed is-centered">
+        <div class="container">
+          <ul>
+            <li
+              v-for="page in PAGE_LINK_LIST"
+              :key="page.path"
+              :class="activePage === page.path ? 'is-active' : ''"
+            >
+              <RouterLink :to="page.path">{{ page.displayName }}</RouterLink>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
   </header>
 
-  <main>
+  <main class="container">
     <RouterView />
   </main>
 </template>
 
 <style scoped>
 header {
-  height: 5vh;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 main {
-  height: 95vh;
+  max-width: 1280px;
   padding: 2rem;
   overflow-y: scroll;
   padding-top: 30px;
