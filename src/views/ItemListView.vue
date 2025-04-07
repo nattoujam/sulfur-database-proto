@@ -6,10 +6,7 @@ import ItemCard from '@/components/ItemCard.vue'
 
 const items = ref([])
 
-axios.get(`${import.meta.env.VITE_API_BASE_URL}/item`).then((r) => {
-  console.log(r)
-  items.value = r.data
-})
+axios.get(`${import.meta.env.VITE_API_BASE_URL}/item`).then((r) => (items.value = r.data))
 </script>
 
 <template>

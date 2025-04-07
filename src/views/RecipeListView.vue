@@ -6,10 +6,7 @@ import RecipeCard from '@/components/RecipeCard.vue'
 
 const recipes = ref([])
 
-axios.get(`${import.meta.env.VITE_API_BASE_URL}/recipe`).then((r) => {
-  console.log(r)
-  recipes.value = r.data
-})
+axios.get(`${import.meta.env.VITE_API_BASE_URL}/recipe`).then((r) => (recipes.value = r.data))
 </script>
 
 <template>

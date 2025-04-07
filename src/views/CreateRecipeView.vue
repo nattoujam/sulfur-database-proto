@@ -40,15 +40,6 @@ const onSubmit = () => {
   notificationVisible.value = false
   error.value = false
 
-  console.log({
-    resultId: resultId.value,
-    amount: amount.value,
-    materials: materials.value.map((material) => ({
-      itemId: material.itemId,
-      amount: material.amount,
-    })),
-  })
-
   axios
     .post(`${import.meta.env.VITE_API_BASE_URL}/recipe`, {
       resultId: resultId.value,
@@ -59,7 +50,6 @@ const onSubmit = () => {
       })),
     })
     .then((r) => {
-      console.log(r)
       notificationVisible.value = true
     })
     .catch(() => {
@@ -70,10 +60,7 @@ const onSubmit = () => {
     })
 }
 
-axios.get(`${import.meta.env.VITE_API_BASE_URL}/item`).then((r) => {
-  console.log(r)
-  items.value = r.data
-})
+axios.get(`${import.meta.env.VITE_API_BASE_URL}/item`).then((r) => (items.value = r.data))
 </script>
 
 <template>

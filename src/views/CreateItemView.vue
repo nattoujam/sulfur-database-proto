@@ -27,15 +27,6 @@ const onSubmit = () => {
   notificationVisible.value = false
   error.value = false
 
-  console.log({
-    name: name.value,
-    tradeInPrice: tradeInPrice.value,
-    price: price.value,
-    size: Number.parseInt(size.value),
-    healAmount: healAmount.value,
-    healSecond: healSecond.value,
-  })
-
   axios
     .post(`${import.meta.env.VITE_API_BASE_URL}/item`, {
       name: name.value,
@@ -46,7 +37,6 @@ const onSubmit = () => {
       healSecond: healSecond.value,
     })
     .then((r) => {
-      console.log(r)
       notificationVisible.value = true
     })
     .catch(() => {
