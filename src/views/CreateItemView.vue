@@ -4,13 +4,13 @@ import { ref, computed } from 'vue'
 
 const name = ref('')
 const tradeInPrice = ref(0)
-const size = ref(0)
+const size = ref(1)
 const healAmount = ref(0)
 const healSecond = ref(0.0)
 
 const posting = ref(false)
 const notificationVisible = ref(false)
-const error = ref(false)
+const hasError = ref(false)
 
 const price = computed(() => tradeInPrice.value * 2)
 
@@ -25,7 +25,7 @@ const onClear = () => {
 const onSubmit = () => {
   posting.value = true
   notificationVisible.value = false
-  error.value = false
+  hasError.value = false
 
   axios
     .post(`${import.meta.env.VITE_API_BASE_URL}/item`, {
@@ -40,7 +40,7 @@ const onSubmit = () => {
       notificationVisible.value = true
     })
     .catch(() => {
-      error.value = true
+      hasError.value = true
     })
     .finally(() => {
       posting.value = false
@@ -54,8 +54,8 @@ const onSubmit = () => {
       <button class="delete" @click="() => (notificationVisible = false)"></button>
       <strong>Success</strong>: create item
     </div>
-    <div v-if="error" class="notification is-danger">
-      <button class="delete" @click="() => (error = false)"></button>
+    <div v-if="hasError" class="notification is-danger">
+      <button class="delete" @click="() => (hasError = false)"></button>
       <strong>Failed</strong>: create item
     </div>
 
@@ -66,23 +66,26 @@ const onSubmit = () => {
       </div>
     </div>
 
-    <div class="field">
-      <label class="label">Trade in price</label>
-      <div class="control">
-        <input
-          class="input"
-          type="number"
-          placeholder="5"
-          :value="tradeInPrice"
-          @input="(e) => (tradeInPrice = Number.parseInt(e.target.value))"
-        />
-      </div>
-    </div>
-
-    <div class="field">
-      <label class="label">Price</label>
-      <div class="control">
-        <input class="input" type="number" placeholder="10" disabled :value="price" />
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+          <label class="label">Trade in price</label>
+          <div class="control">
+            <input
+              class="input"
+              type="number"
+              placeholder="5"
+              :value="tradeInPrice"
+              @input="(e) => (tradeInPrice = Number.parseInt(e.target.value))"
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Price</label>
+          <div class="control">
+            <input class="input" placeholder="10" disabled :value="price" />
+          </div>
+        </div>
       </div>
     </div>
 
@@ -125,7 +128,7 @@ const onSubmit = () => {
       </div>
     </div>
 
-    <div class="field is-grouped">
+    <div class="field is-grouped is-grouped-centered">
       <div class="control">
         <button class="button is-link" :disabled="posting" @click="onSubmit">Submit</button>
       </div>
