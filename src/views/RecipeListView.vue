@@ -13,8 +13,8 @@ axios.get(`${import.meta.env.VITE_API_BASE_URL}/recipe`).then((r) => {
 </script>
 
 <template>
-  <div>
-    <div v-for="recipe in recipes" :key="recipe.id" class="box">
+  <div class="grid is-col-min-16">
+    <div v-for="recipe in recipes" :key="recipe.id" class="cell">
       <RecipeCard :recipe="recipe" />
     </div>
   </div>
