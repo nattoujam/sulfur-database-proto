@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { Item } from '@/types/schemaType'
 
 import CommonCard from '@/components/atoms/CommonCard.vue'
+import ItemEffectTag from '@/components/ItemEffectTag.vue'
 
 const props = defineProps<{
   item: Item
@@ -23,5 +24,8 @@ const createdTimestamp = computed(() => new Date(props.item.createdAt).toLocaleS
   >
     回復量: {{ item.healAmount }}<br />
     回復速度: {{ item.healSecond }}s
+    <div class="tags">
+      <ItemEffectTag v-for="(effect, index) in item.itemEffectList" :key="index" :effect="effect" />
+    </div>
   </CommonCard>
 </template>

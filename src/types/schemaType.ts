@@ -4,11 +4,20 @@ type DbCommon = {
   updatedAt: string
 }
 
+export type Effect = { name: string } & (
+  | { amount: string | number; second: number }
+  | { amount: string }
+  | { flag: boolean }
+)
+
 export type Item = DbCommon & {
   name: string
   tradeInPrice: number
   price: number
   size: number
+  healAmount: number
+  healSecond: number
+  itemEffectList: Array<Effect>
 }
 export type Material = DbCommon & {
   recipeId: number
