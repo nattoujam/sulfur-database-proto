@@ -62,7 +62,6 @@ header {
 main {
   max-width: 1280px;
   padding: 2rem;
-  overflow-y: scroll;
   padding-top: 30px;
 }
 </style>
