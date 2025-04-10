@@ -2,6 +2,11 @@
 import axios from 'axios'
 import { ref, computed } from 'vue'
 
+import FormField from '@/components/atoms/FormField.vue'
+import FormInput from '@/components/atoms/FormInput.vue'
+import FormSelect from '@/components/atoms/FormSelect.vue'
+import FormButton from '@/components/atoms/FormButton.vue'
+
 const resultId = ref(0)
 const amount = ref(0)
 const materials = ref([])
@@ -74,49 +79,31 @@ axios.get(`${import.meta.env.VITE_API_BASE_URL}/item`).then((r) => (items.value 
       <strong>Failed</strong>: create item
     </div>
 
-    <div class="field">
-      <label class="label">Result</label>
-      <div class="control">
-        <div class="select">
-          <select v-model="resultId">
-            <option v-for="item in items" :key="`item${item.id}`" :value="item.id">
-              {{ item.name }}
-            </option>
-          </select>
-        </div>
-      </div>
-    </div>
+    <FormField label-text="Result">
+      <FormSelect
+        v-model="resultId"
+        :option-list="items.map((item) => ({ value: item.id, name: item.name }))"
+      />
+    </FormField>
 
-    <div class="field">
-      <label class="label">Amount</label>
-      <div class="control">
-        <input
-          class="input"
-          type="number"
-          placeholder="1"
-          :value="amount"
-          @input="(e) => (amount = Number.parseInt(e.target.value))"
-        />
-      </div>
-    </div>
+    <FormField label-text="Amount">
+      <FormInput v-model="amount" type="number" placeholder="1" />
+    </FormField>
 
-    <div class="field">
-      <label class="label">Materials</label>
+    <FormField label-text="Materials">
       <div class="field has-addons">
-        <div class="control">
-          <div class="select">
-            <select v-model="selectItemId">
-              <option v-for="item in materialItems" :key="`item${item.id}`" :value="item.id">
-                {{ item.name }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="control">
-          <button class="button" @click="onAddMaterial">+ add</button>
-        </div>
+        <FormSelect
+          v-model="selectItemId"
+          :option-list="
+            materialItems.map((materialItem) => ({
+              value: materialItem.id,
+              name: materialItem.name,
+            }))
+          "
+        />
+        <FormButton @click="onAddMaterial">+ add</FormButton>
       </div>
-    </div>
+    </FormField>
 
     <div
       v-for="(material, index) in materials"
@@ -128,27 +115,20 @@ axios.get(`${import.meta.env.VITE_API_BASE_URL}/item`).then((r) => (items.value 
       </div>
       <div class="field-body">
         <div class="field">
-          <div class="control">
-            <input
-              class="input is-small"
-              type="number"
-              placeholder="8"
-              :value="material.amount"
-              @input="(e) => (materials[index].amount = Number.parseInt(e.target.value))"
-            />
-          </div>
+          <FormInput
+            v-model="material.amount"
+            input-style="is-small"
+            type="number"
+            placeholder="8"
+          />
         </div>
       </div>
       <button class="delete" @click="() => onDeleteMaterial(index)"></button>
     </div>
 
     <div class="field is-grouped">
-      <div class="control">
-        <button class="button is-link" :disabled="posting" @click="onSubmit">Submit</button>
-      </div>
-      <div class="control">
-        <button class="button is-link is-light" @click="onClear">Clear</button>
-      </div>
+      <FormButton button-style="is-link" :disabled="posting" @click="onSubmit">Submit</FormButton>
+      <FormButton button-style="is-link is-light" @click="onClear">Clear</FormButton>
     </div>
   </div>
 </template>

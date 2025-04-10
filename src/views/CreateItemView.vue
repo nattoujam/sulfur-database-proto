@@ -2,6 +2,11 @@
 import axios from 'axios'
 import { ref, computed } from 'vue'
 
+import FormField from '@/components/atoms/FormField.vue'
+import FormInput from '@/components/atoms/FormInput.vue'
+import FormSelect from '@/components/atoms/FormSelect.vue'
+import FormButton from '@/components/atoms/FormButton.vue'
+
 const name = ref('')
 const tradeInPrice = ref(0)
 const size = ref(1)
@@ -59,82 +64,44 @@ const onSubmit = () => {
       <strong>Failed</strong>: create item
     </div>
 
-    <div class="field">
-      <label class="label">Name</label>
-      <div class="control">
-        <input class="input" type="text" placeholder="きのこ" v-model="name" />
-      </div>
-    </div>
+    <FormField label-text="Name">
+      <FormInput v-model="name" placeholder="きのこ" />
+    </FormField>
 
     <div class="field is-horizontal">
       <div class="field-body">
-        <div class="field">
-          <label class="label">Trade in price</label>
-          <div class="control">
-            <input
-              class="input"
-              type="number"
-              placeholder="5"
-              :value="tradeInPrice"
-              @input="(e) => (tradeInPrice = Number.parseInt(e.target.value))"
-            />
-          </div>
-        </div>
-        <div class="field">
-          <label class="label">Price</label>
-          <div class="control">
-            <input class="input" placeholder="10" disabled :value="price" />
-          </div>
-        </div>
+        <FormField label-text="Trade in price">
+          <FormInput v-model="tradeInPrice" type="number" placeholder="5" />
+        </FormField>
+        <FormField label-text="Price">
+          <FormInput v-model="price" placeholder="10" disabled />
+        </FormField>
       </div>
     </div>
 
-    <div class="field">
-      <label class="label">Size</label>
-      <div class="control">
-        <div class="select">
-          <select v-model="size">
-            <option>1</option>
-            <option>2</option>
-            <option>4</option>
-          </select>
-        </div>
-      </div>
-    </div>
+    <FormField label-text="Size">
+      <FormSelect
+        v-model="size"
+        :option-list="
+          [1, 2, 4].map((n) => ({
+            value: n,
+            name: n,
+          }))
+        "
+      />
+    </FormField>
 
-    <div class="field">
-      <label class="label">Heal amount</label>
-      <div class="control">
-        <input
-          class="input"
-          type="number"
-          placeholder="10"
-          :value="healAmount"
-          @input="(e) => (healAmount = Number.parseFloat(e.target.value))"
-        />
-      </div>
-    </div>
+    <FormField label-text="Heal amount">
+      <FormInput v-model="healAmount" type="number" placeholder="10" />
+    </FormField>
 
-    <div class="field">
-      <label class="label">Heal second</label>
-      <div class="control">
-        <input
-          class="input"
-          type="number"
-          placeholder="5"
-          :value="healSecond"
-          @input="(e) => (healSecond = Number.parseFloat(e.target.value))"
-        />
-      </div>
-    </div>
+    <FormField label-text="Heal second">
+      <FormInput v-model="healSecond" type="number" placeholder="5" />
+    </FormField>
 
     <div class="field is-grouped is-grouped-centered">
-      <div class="control">
-        <button class="button is-link" :disabled="posting" @click="onSubmit">Submit</button>
-      </div>
-      <div class="control">
-        <button class="button is-link is-light" @click="onClear">Clear</button>
-      </div>
+      <FormButton button-style="is-link" :disabled="posting" @click="onSubmit">Submit</FormButton>
+      <FormButton button-style="is-link is-light" @click="onClear">Clear</FormButton>
     </div>
   </div>
 </template>
